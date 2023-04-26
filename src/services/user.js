@@ -44,6 +44,29 @@ class UserService {
     }
   }
 
+  static async getByEmail(email) {
+    try {
+      const user = await User.findOne({ email }).exec();
+      let sanitizedUser = {}
+      if(user) {
+        sanitizedUser = {          
+          _id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          isActive: user.isActive,
+          token: user.token,
+          createdAt: user.createdAt,
+          lastLoginAt: user.lastLoginAt,
+        }  
+      }
+      // if user is found, return user (without password), else return null
+      return (user ? sanitizedUser : null)
+    } catch (err) {
+      throw new DatabaseError(err);
+    }
+  }
+
   static async authenticateWithPassword(email, password) {
     try {
       const user = await User.findOne({ email }).exec();

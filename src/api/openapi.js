@@ -6,6 +6,7 @@ import {
   changePasswordSchema,
   userSchema,
 } from "./schemas/auth.js";
+import { userLookupSchema } from "./schemas/user.js";
 import testModelSchema from "./schemas/testmodel.js";
 
 export const definition = {
@@ -27,6 +28,7 @@ export const definition = {
       loginSchema,
       registerSchema,
       changePasswordSchema,
+      userLookupSchema,
       User: userSchema,
     },
     securitySchemes: {

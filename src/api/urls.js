@@ -11,6 +11,10 @@ export default {
     changePassword: "/password",
     register: "/register",
   },
+  user: {
+    path: "/user",
+    lookup: "/lookup"
+  },
   testModel: {
     path: "/test-model",
   },

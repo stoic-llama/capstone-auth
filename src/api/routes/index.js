@@ -4,6 +4,7 @@ import swaggerUI from "swagger-ui-express";
 import { authenticateWithToken } from "../middlewares/auth.js";
 import { handle404, handleError } from "../middlewares/errors.js";
 import authRouter from "./auth.js";
+import userRouter from "./user.js";
 import testModelRouter from "./testmodel.js";
 import urls from "../urls.js";
 import spec from "../openapi.js";
@@ -23,6 +24,9 @@ router.use(
   swaggerUI.serve,
   swaggerUI.setup(null, swaggerUIOptions)
 );
+
+// User General Services (e.g., Lookup)
+router.use(urls.apiPrefix + urls.user.path, userRouter);
 
 // Authentication
 router.use(authenticateWithToken);
