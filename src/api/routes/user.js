@@ -25,24 +25,18 @@ const router = Router();
  *             $ref: '#/components/schemas/userLookupSchema'
  *     responses:
  *       200:
- *         description: Successful lookup, with user details
+ *         description: Sends null if new user, else send user back
  *         content:
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
- *       400:
- *         description: Bad request, incorrect user lookup metadata
  */
 router.post(urls.user.lookup, requireSchema(userLookupSchema), async (req, res) => {
   const { email } = req.validatedBody;
 
   const user = await UserService.getByEmail(email);
-
-  if (user) {
-    res.json({ user });
-  } else {
-    res.status(401).json({ error: "Email not found" });
-  }
+  
+  res.status(200).json({ user });
 });
 
 router.get(urls.auth.login, (req, res) => {
