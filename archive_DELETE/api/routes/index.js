@@ -6,6 +6,7 @@ import { handle404, handleError } from "../middlewares/errors.js";
 import authRouter from "./auth.js";
 import userRouter from "./user.js";
 import healthcheckRouter from "./healthcheck.js"
+// import testModelRouter from "./testmodel.js";
 import urls from "../urls.js";
 import spec from "../openapi.js";
 
@@ -34,6 +35,9 @@ router.use(urls.apiPrefix + urls.user.path, userRouter);
 // Authentication
 router.use(authenticateWithToken);
 router.use(urls.apiPrefix + urls.auth.path, authRouter);
+
+// CRUD API
+// router.use(urls.apiPrefix + urls.testModel.path, testModelRouter);
 
 // Redirect browsers from index to API docs
 router.get("/", (req, res, next) => {

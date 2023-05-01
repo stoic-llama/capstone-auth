@@ -18,12 +18,12 @@ ARG NODE_ENV="production"
 ARG LOG_LEVEL="info"
 ARG DATABASE_URL
 ENV NODE_ENV="${NODE_ENV}" \
-    PATH="${PATH}:/node_modules/.bin" \
-    USER="node" \
-    DATABASE_URL="${DATABASE_URL}" \
-    LOG_LEVEL="${LOG_LEVEL}"
+  PATH="${PATH}:/node_modules/.bin" \
+  USER="node" \
+  DATABASE_URL="${DATABASE_URL}" \
+  LOG_LEVEL="${LOG_LEVEL}"
 
 COPY --chown=node:node . .
-EXPOSE 3000
+EXPOSE 5400
 
 CMD node server

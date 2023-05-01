@@ -15,6 +15,9 @@ export default {
     path: "/user",
     lookup: "/lookup"
   },
+  // testModel: {
+  //   path: "/test-model",
+  // },
   healthcheck: {
     path: "/healthcheck",
   }

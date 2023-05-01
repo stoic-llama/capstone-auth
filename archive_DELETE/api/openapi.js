@@ -7,6 +7,7 @@ import {
   userSchema,
 } from "./schemas/auth.js";
 import { userLookupSchema } from "./schemas/user.js";
+// import testModelSchema from "./schemas/testmodel.js";
 
 export const definition = {
   openapi: "3.0.0",
@@ -23,6 +24,7 @@ export const definition = {
   ],
   components: {
     schemas: {
+      // TestModel: testModelSchema,
       loginSchema,
       registerSchema,
       changePasswordSchema,
