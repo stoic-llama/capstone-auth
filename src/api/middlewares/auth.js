@@ -10,8 +10,9 @@ export const authenticateWithToken = (req, res, next) => {
           req.user = user;
           next();
         })
-        .catch((err) => {
-          next(err);
+        .catch(() => {
+          res.status(401).json({ error: "You don't have a valid token" });
+          return;
         });
       return;
     }

@@ -6,7 +6,10 @@ import {
   changePasswordSchema,
   userSchema,
 } from "./schemas/auth.js";
-import { userLookupSchema } from "./schemas/user.js";
+import { 
+  userLookupSchema, 
+  updateProfileSchema,
+} from "./schemas/user.js";
 
 export const definition = {
   openapi: "3.0.0",
@@ -27,6 +30,7 @@ export const definition = {
       registerSchema,
       changePasswordSchema,
       userLookupSchema,
+      updateProfileSchema,
       User: userSchema,
     },
     securitySchemes: {

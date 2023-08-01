@@ -39,8 +39,64 @@ router.post(urls.user.lookup, requireSchema(userLookupSchema), async (req, res) 
   res.status(200).json({ user });
 });
 
-router.get(urls.auth.login, (req, res) => {
+router.get(urls.user.lookup, (req, res) => {
   res.status(405).json({ error: "Validate Email with POST instead" });
 });
+
+
+/** @swagger
+ *
+ * tags:
+ *   name: User
+ *   description: User General Services API
+ *
+ * /user/edit:
+ *   post:
+ *     tags: [User]
+ *     summary: Edit user profile 
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/updateProfileSchema'
+ *     responses:
+ *       200:
+ *         description: Send user back
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ */
+router.post(urls.user.edit, async (req, res) => {
+  const authHeader = req.get("Authorization");
+  console.log("authHeader: " + authHeader)
+
+  if (authHeader) {
+    const m = authHeader.match(/^(Token|Bearer) (.+)/i);
+    if (m) {
+      await UserService.authenticateWithToken(m[2])
+        .then((user) => {
+          console.log("req: " + req.body.firstName)
+          console.log("req: " + req.body.lastName)
+          console.log("req: " + req.body.password)
+
+          user.firstName = req.body.firstName
+          user.lastName = req.body.lastName          
+          UserService.setPassword(user, req.body.password); 
+          user.save();
+          res.status(200).json(user);
+        })
+    } 
+    else {
+      res.status(400).json({message: "Bad user input."})
+    } 
+  }
+});
+
+router.get(urls.user.edit, (req, res) => {
+  res.status(405).json({ error: "Update user profile with POST instead" });
+});
+
 
 export default router;

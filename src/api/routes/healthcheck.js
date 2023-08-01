@@ -23,12 +23,14 @@ const router = Router();
 router.get("/", async (req, res) => {  
     try {
         res.status(200).json({
+            name: 'capstone-auth',
             message: 'OK',
             uptime: Math.floor(process.uptime()) + " seconds",
             timestamp: new Date(Date.now()).toString() 
         });
     } catch (error) {
         res.status(500).json({
+            name: 'capstone-auth',
             message: error.message,
             uptime: Math.floor(process.uptime()) + " seconds",
             timestamp: new Date(Date.now()).toString() 

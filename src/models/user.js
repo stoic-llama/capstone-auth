@@ -86,12 +86,6 @@ schema.statics.authenticateWithPassword =
     return updatedUser;
   };
 
-schema.statics.authenticateWithToken = async function authenticateWithToken(
-  token
-) {
-  return this.findOne({ token }).exec();
-};
-
 schema.methods.setPassword = async function setPassword(password) {
   this.password = await generatePasswordHash(password);
   if (!this.isNew) {

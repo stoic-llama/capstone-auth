@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import UserService from "../../services/user.js";
 import urls from "../urls.js";
-import { requireUser } from "../middlewares/auth.js";
+// import { requireUser } from "../middlewares/auth.js";
 import { requireSchema } from "../middlewares/validate.js";
 import {
   registerSchema,
@@ -99,7 +99,7 @@ router.post(
 );
 
 // all auth routes after this can rely on existence of req.user
-router.use(requireUser);
+// router.use(requireUser);
 
 /** @swagger
  *
@@ -112,15 +112,27 @@ router.use(requireUser);
  *         description: Successful logout, token invalidated
  */
 router.post(urls.auth.logout, async (req, res) => {
-  await UserService.regenerateToken(req.user);
-  console.log("Logging out successfully")
-  // note status 204 does not contain body, so changing 204 to 200 here
-  res.status(200).json({ message: "Logout successful" });
+  const authHeader = req.get("Authorization");
+  if (authHeader) {
+    const m = authHeader.match(/^(Token|Bearer) (.+)/i);
+    if (m) {
+      await UserService.authenticateWithToken(m[2])
+        .then( async (user) => {
+          await UserService.regenerateToken(user);
+          console.log(user.firstName + " " + user.lastName + " logged out successfully")
+          // note status 204 does not contain body, so changing 204 to 200 here
+          res.status(200).json({ message: "Logout successful" });
+      }).catch(() => {
+        res.status(401).json({ error: "You don't have a valid token" });
+      });
+    }
+  }
 });
 
 router.get(urls.auth.logout, (req, res) => {
   res.status(405).json({ error: "Logout with POST instead" });
 });
+
 
 router.post(
   urls.auth.changePassword,

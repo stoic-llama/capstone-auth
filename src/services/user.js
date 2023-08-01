@@ -86,7 +86,9 @@ class UserService {
 
   static async authenticateWithToken(token) {
     try {
-      return User.findOne({ token }).exec();
+      let user = User.findOne({ token: token }).exec();
+      console.log("User: " + user.firstName)
+      return user
     } catch (err) {
       throw new DatabaseError(err);
     }

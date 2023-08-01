@@ -14,8 +14,8 @@ COPY --chown=node:node package.json package-lock.json ./
 
 RUN npm ci
 
-ARG NODE_ENV="production"
-ARG LOG_LEVEL="info"
+ARG NODE_ENV="development"
+ARG LOG_LEVEL="debug"
 ARG DATABASE_URL
 ENV NODE_ENV="${NODE_ENV}" \
   PATH="${PATH}:/node_modules/.bin" \

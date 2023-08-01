@@ -13,7 +13,8 @@ export default {
   },
   user: {
     path: "/user",
-    lookup: "/lookup"
+    lookup: "/lookup",
+    edit: "/edit",
   },
   healthcheck: {
     path: "/healthcheck",
