@@ -8,7 +8,7 @@ const DEFAULT_LOG_LEVEL = NODE_ENV === "production" ? "info" : "debug";
 export default {
   NODE_ENV,
   LOG_LEVEL: process.env.LOG_LEVEL || DEFAULT_LOG_LEVEL,
-  PORT: parseInt(process.env.PORT, 10) || 3000,
+  PORT: parseInt(process.env.PORT),
   DATABASE_URL: process.env.DATABASE_URL,
   NODEMAILER_HOST: process.env.NODEMAILER_HOST || "localhost",
   NODEMAILER_PORT: process.env.NODEMAILER_PORT || 25,

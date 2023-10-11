@@ -16,14 +16,16 @@ RUN npm ci
 
 ARG NODE_ENV="development"
 ARG LOG_LEVEL="debug"
-ARG DATABASE_URL
+ARG PORT="5400"
+# ARG DATABASE_URL=
 ENV NODE_ENV="${NODE_ENV}" \
   PATH="${PATH}:/node_modules/.bin" \
   USER="node" \
-  DATABASE_URL="${DATABASE_URL}" \
-  LOG_LEVEL="${LOG_LEVEL}"
+  # DATABASE_URL="${DATABASE_URL}" \
+  LOG_LEVEL="${LOG_LEVEL}" \
+  PORT="${PORT}"
 
 COPY --chown=node:node . .
 EXPOSE 5400
 
-CMD node server
+CMD npm run dev
