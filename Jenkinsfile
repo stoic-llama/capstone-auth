@@ -2,6 +2,7 @@ pipeline {
     agent any
     environment {
         version = '1.1'
+        containerName = 'capstone-auth'
     }
 
     stages {
@@ -38,14 +39,24 @@ pipeline {
             steps {
                 echo 'deploying the application...' 
 
+                withCredentials([
+                    string(credentialsId: 'website', variable: 'WEBSITE'),
+                ]) {
+                    script {
+                        // Use SSH to check if the container exists. If not exist, then catch error
+                        // so Jenkins pipeline can continue.
+                        def containerExists = sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker stop "${containerName}"', returnStatus: true)
+
+                        echo "containerExists: $containerExists"
+                    }
+                }
+
                 // Use the withCredentials block to access the credentials
                 // Note: need --rm when docker run.. so that docker stop can kill it cleanly
                 withCredentials([
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                     string(credentialsId: 'mongodb_user', variable: 'MONGODB_USER'),
                 ]) {
-                    sh 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "docker stop capstone-auth"'
-
                     sh '''
                         ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "docker run -d \
                         -p 5400:5400 \
