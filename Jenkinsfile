@@ -1,7 +1,11 @@
+def getCommitSha() {
+    return sh(returnStdout: true, script: "git rev-parse HEAD | tr -d '\n'")
+}
+
 pipeline {
     agent any
     environment {
-        version = '1.1'
+        version = getCommitSha() // '1.1'
         containerName = 'capstone-auth'
     }
 
@@ -61,7 +65,6 @@ pipeline {
                         ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key ${WEBSITE} "docker run -d \
                         -p 5400:5400 \
                         -e DATABASE_URL=${MONGODB_USER} \
-                        --rm \
                         --name capstone-auth \
                         --network helpmybabies \
                         registry.digitalocean.com/capstone-ccsu/capstone-auth:${version}
