@@ -113,6 +113,9 @@ router.post(
  */
 router.post(urls.auth.logout, async (req, res) => {
   const authHeader = req.get("Authorization");
+  
+  console.log("authHeader: " + authHeader)
+
   if (authHeader) {
     const m = authHeader.match(/^(Token|Bearer) (.+)/i);
     if (m) {
@@ -126,7 +129,9 @@ router.post(urls.auth.logout, async (req, res) => {
         res.status(401).json({ error: "You don't have a valid token" });
       });
     }
-  }
+  } else {
+    res.status(401).json({ error: "Cannot logout without a valid Authorization Bearer token." });
+  }  
 });
 
 router.get(urls.auth.logout, (req, res) => {

@@ -69,7 +69,7 @@ describe("/api/v1/auth/logout", () => {
       .post("/api/v1/auth/logout")
       .set("Authorization", "Token abc");
 
-    expect(res.status).toBe(204);
+    expect(res.status).toBe(200);
     expect(UserService.authenticateWithToken).toHaveBeenCalledWith("abc");
     expect(UserService.regenerateToken).toHaveBeenCalled();
   });

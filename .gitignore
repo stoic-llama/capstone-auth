@@ -1,3 +1,6 @@
 node_modules
+archive_DELETE/
+.vscode/
+
 # Keep environment variables out of version control
 .env
