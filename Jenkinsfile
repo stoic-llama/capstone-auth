@@ -45,12 +45,10 @@ pipeline {
         
                 APPROVER_EMAIL = credentials('approver_email')
 
-                script {
-                    emailext mimeType: 'text/html',
-                    subject: "APPROVAL REQUIRED: " // ${currentBuild.fullDisplayName}",
-                    to: ${APPROVER_EMAIL},
-                    body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
-                }
+                emailext mimeType: 'text/html',
+                        subject: "APPROVAL REQUIRED: " // ${currentBuild.fullDisplayName}",
+                        to: ${APPROVER_EMAIL},
+                        body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
             }
         }
 
