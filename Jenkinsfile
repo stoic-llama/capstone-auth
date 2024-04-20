@@ -44,7 +44,7 @@ pipeline {
                 echo 'getting approval to go to production...'
         
                 emailext (
-                    subject: "APPROVAL REQUIRED: ${JOB_NAME} - ${BUILD_DISPLAY_NAME}",
+                    subject: "APPROVAL REQUIRED: ${JOB_NAME} build ${BUILD_DISPLAY_NAME}",
                     body:   '''     
                                     <html>
                                         <body>
