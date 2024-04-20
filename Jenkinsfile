@@ -44,19 +44,23 @@ pipeline {
                 echo 'getting approval to go to production...'
         
                 emailext (
-                    subject: "APPROVAL REQUIRED: ${BUILD_NUMBER}",
+                    subject: "APPROVAL REQUIRED: ${BUILD_DISPLAY_NAME} - ${BUILD_NUMBER}",
                     body:   '''     
                                     <html>
                                         <body>
                                             <p>Build Status: ${BUILD_STATUS}</p>
-                                            <p>Build Number: ${BUILD_NUMBER}</p>
-                                            <a href="${BUILD_URL} input">Approve</a>
+                                            <a href="${BUILD_URL}">Go to approval page</a>
                                         </body>
                                     </html>
                             ''',
                     to: 'infantformulafinder@gmail.com',
                     mimeType: 'text/html'
                 )    
+
+                input (
+                    message: 'Approve to go to production?', 
+                    ok: 'Approve'
+                )
             }
         }
 
