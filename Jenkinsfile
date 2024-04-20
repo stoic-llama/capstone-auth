@@ -8,6 +8,7 @@ pipeline {
         version = getCommitSha() // '1.1'
         containerName = 'capstone-auth'
         APPROVER_EMAIL = credentials('approver_email')
+        CURRENT_BUILD = ${currentBuild.fullDisplayName}
     }
 
     stages {
@@ -46,7 +47,7 @@ pipeline {
 
                 script {
                     emailext mimeType: 'text/html',
-                    subject: 'APPROVAL REQUIRED: "${currentBuild.fullDisplayName}"',
+                    subject: "APPROVAL REQUIRED: $CURRENT_BUILD",
                     to: ${APPROVER_EMAIL},
                     body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
 
