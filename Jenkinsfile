@@ -45,7 +45,15 @@ pipeline {
         
                 emailext (
                     subject: "APPROVAL REQUIRED: ${BUILD_NUMBER}",
-                    body: "<a href=”${BUILD_URL}input”>click to approve</a>", 
+                    body:   '''     
+                                    <html>
+                                        <body>
+                                            <p>Build Status: ${BUILD_STATUS}</p>
+                                            <p>Build Number: ${BUILD_NUMBER}</p>
+                                            <a href="${BUILD_URL} input">Approve</a>
+                                        </body>
+                                    </html>
+                            ''',
                     to: 'infantformulafinder@gmail.com',
                     mimeType: 'text/html'
                 )    
