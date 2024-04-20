@@ -35,7 +35,45 @@ pipeline {
 
         stage("test") {
             steps {
-                echo 'testing the application...'    
+                echo 'setting up the test environment...'    
+
+                script {
+                    // Check if the container exists 
+                        // --> If yes, stop and remove it
+                        // --> If no, display result true for both stop and rm command, no harm done 
+                    // Then let Jenkins continue
+                    def containerStopped = sh(script: 'docker stop ${containerName}', returnStatus: true) == 0
+
+                    echo "docker stop command was finished successfully: $containerStopped"
+
+                    def containerRemoved = sh(script: 'docker rm ${containerName}', returnStatus: true) == 0
+
+                    echo "docker rm command was finished successfully: $containerRemoved"
+                }
+            
+                // Use the withCredentials block to access the credentials
+                // Note: need --rm when docker run.. so that docker stop can kill it cleanly
+                withCredentials([
+                    string(credentialsId: 'mongodb_user', variable: 'MONGODB_USER'),
+                ]) {
+                    sh '''
+                        docker run -d \
+                        -p 5400:5400 \
+                        -e DATABASE_URL=${MONGODB_USER} \
+                        --name capstone-auth \
+                        --network helpmybabies \
+                        registry.digitalocean.com/capstone-ccsu/capstone-auth:${version}
+
+                        docker ps
+                    '''                    
+                }
+
+                echo 'running the unit tests...'    
+
+                sh '''
+                    docker exec -it capstone-auth sh
+                    npm run coverage
+                '''
             }
         }
 
@@ -67,15 +105,33 @@ pipeline {
             steps {
                 echo 'deploying the application...' 
 
+                // withCredentials([
+                //     string(credentialsId: 'website', variable: 'WEBSITE'),
+                // ]) {
+                //     script {
+                //         // Use SSH to check if the container exists. If not exist, then catch error
+                //         // so Jenkins pipeline can continue.
+                //         def containerExists = sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker stop "${containerName}"', returnStatus: true)
+
+                //         echo "containerExists: $containerExists"
+                //     }
+                // }
+
                 withCredentials([
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {
                     script {
-                        // Use SSH to check if the container exists. If not exist, then catch error
-                        // so Jenkins pipeline can continue.
-                        def containerExists = sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker stop "${containerName}"', returnStatus: true)
+                        // Use SSH to check if the container exists 
+                            // --> If yes, stop and remove it
+                            // --> If no, display result true for both stop and rm command, no harm done 
+                        // Then let Jenkins continue
+                        def containerStopped = sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker stop ${containerName}', returnStatus: true) == 0
 
-                        echo "containerExists: $containerExists"
+                        echo "docker stop command was finished successfully: $containerStopped"
+
+                        def containerRemoved = sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker rm ${containerName}', returnStatus: true) == 0
+
+                        echo "docker rm command was finished successfully: $containerRemoved"
                     }
                 }
 

@@ -30,12 +30,16 @@
     "prettier": "^2.7.1",
     "supertest": "^6.2.4"
   },
+  "jest": {
+    "verbose": true
+
+  },
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon -w src -w .env -w server.js server | pino-pretty -clt -i 'hostname,pid'",
     "lint": "eslint .",
     "prettier": "prettier -w .",
-    "test": "jest --roots test --verbose",
+    "test": "jest --roots test",
     "coverage": "jest --roots test --verbose --coverage",
     "watch-test": "jest --roots test --verbose --watch",
     "shell": "node --experimental-repl-await scripts/shell.js"
