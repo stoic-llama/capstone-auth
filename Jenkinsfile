@@ -44,7 +44,7 @@ pipeline {
             echo 'getting approval to go to production...'
 
             emailext mimeType: 'text/html',
-            subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”,
+            subject: "APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}",
             to: ${APPROVER_EMAIL},
             body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
 
