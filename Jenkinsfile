@@ -71,8 +71,7 @@ pipeline {
                 echo 'running the unit tests...'    
 
                 sh '''
-                    docker exec capstone-auth sh
-                    npm run coverage
+                    docker exec capstone-auth sh -c "npm run coverage"
                 '''
             }
         }
