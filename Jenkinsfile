@@ -49,7 +49,7 @@ pipeline {
                                     <html>
                                         <body>
                                             <p>Build Status: ${BUILD_STATUS}</p>
-                                            <a href="${BUILD_URL}">Go to approval page</a>
+                                            <a href="${BUILD_URL}console">Go to approval page</a>
                                         </body>
                                     </html>
                             ''',
