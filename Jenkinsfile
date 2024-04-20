@@ -7,6 +7,7 @@ pipeline {
     environment {
         version = getCommitSha() // '1.1'
         containerName = 'capstone-auth'
+        APPROVER_EMAIL = credentials('approver_email')
     }
 
     stages {
@@ -42,14 +43,19 @@ pipeline {
         stage("production approval") {
             echo 'getting approval to go to production...'
 
-            withCredentials([
-                string(credentialsId: 'approver_email', variable: 'APPROVER_EMAIL'),
-            ]) {
-                emailext mimeType: 'text/html',
-                subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”,
-                to: ${APPROVER_EMAIL},
-                body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
-            }
+            emailext mimeType: 'text/html',
+            subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”,
+            to: ${APPROVER_EMAIL},
+            body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
+
+            // withCredentials([
+            //     string(credentialsId: 'approver_email', variable: 'APPROVER_EMAIL'),
+            // ]) {
+            //     emailext mimeType: 'text/html',
+            //     subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”,
+            //     to: ${APPROVER_EMAIL},
+            //     body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
+            // }
         }
 
         stage("deploy") {
