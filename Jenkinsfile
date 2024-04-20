@@ -43,11 +43,9 @@ pipeline {
             steps {
                 echo 'getting approval to go to production...'
         
-                // APPROVER_EMAIL = credentials('approver_email')
-
                 emailext mimeType: 'text/html',
                         subject: '''APPROVAL REQUIRED: ${currentBuild.fullDisplayName}''',
-                        to: "infantformulafinder@gmail.com",
+                        to: '''credentials('approver_email')''', // "infantformulafinder@gmail.com",
                         body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
             }
         }
