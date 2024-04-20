@@ -47,18 +47,9 @@ pipeline {
 
                 script {
                     emailext mimeType: 'text/html',
-                    subject: "APPROVAL REQUIRED: " ${currentBuild.fullDisplayName},
+                    subject: "APPROVAL REQUIRED: " // ${currentBuild.fullDisplayName}",
                     to: ${APPROVER_EMAIL},
                     body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
-
-                    // withCredentials([
-                    //     string(credentialsId: 'approver_email', variable: 'APPROVER_EMAIL'),
-                    // ]) {
-                    //     emailext mimeType: 'text/html',
-                    //     subject: “APPROVAL RQD[JENKINS] ${currentBuild.fullDisplayName}”,
-                    //     to: ${APPROVER_EMAIL},
-                    //     body: '''<a href=”${BUILD_URL}input”>click to approve</a>'''
-                    // }
                 }
             }
         }
