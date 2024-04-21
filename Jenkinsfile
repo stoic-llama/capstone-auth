@@ -164,35 +164,37 @@ pipeline {
             echo "Release Success"
         }
         failure {
-            echo "Release Failed, rolling back to previous commit"
+            steps {
+                echo "Release Failed, rolling back to previous commit"
 
-            // Get the SHA of the previous commit
-            def previousVersion = getPrevCommitShaForRollback(1)
+                // Get the SHA of the previous commit
+                def previousVersion = getPrevCommitShaForRollback(1)
+                
+                // Check if the container exists 
+                    // --> If yes, stop and remove it
+                    // --> If no, display result true for both stop and rm command, no harm done 
+                // Then let Jenkins continue
+                def containerStopped = sh(script: 'docker stop ${containerName}', returnStatus: true) == 0
+                echo "docker stop command was finished successfully: $containerStopped"
+                def containerRemoved = sh(script: 'docker rm ${containerName}', returnStatus: true) == 0
+                echo "docker rm command was finished successfully: $containerRemoved"
             
-            // Check if the container exists 
-                // --> If yes, stop and remove it
-                // --> If no, display result true for both stop and rm command, no harm done 
-            // Then let Jenkins continue
-            def containerStopped = sh(script: 'docker stop ${containerName}', returnStatus: true) == 0
-            echo "docker stop command was finished successfully: $containerStopped"
-            def containerRemoved = sh(script: 'docker rm ${containerName}', returnStatus: true) == 0
-            echo "docker rm command was finished successfully: $containerRemoved"
-        
-            // Use the withCredentials block to access the credentials
-            // Note: need --rm when docker run.. so that docker stop can kill it cleanly
-            withCredentials([
-                string(credentialsId: 'mongodb_user', variable: 'MONGODB_USER'),
-            ]) {
-                sh '''
-                    docker run -d \
-                    -p 5400:5400 \
-                    -e DATABASE_URL=${MONGODB_USER} \
-                    --name capstone-auth \
-                    --network helpmybabies \
-                    registry.digitalocean.com/capstone-ccsu/capstone-auth:${previousVersion}
+                // Use the withCredentials block to access the credentials
+                // Note: need --rm when docker run.. so that docker stop can kill it cleanly
+                withCredentials([
+                    string(credentialsId: 'mongodb_user', variable: 'MONGODB_USER'),
+                ]) {
+                    sh '''
+                        docker run -d \
+                        -p 5400:5400 \
+                        -e DATABASE_URL=${MONGODB_USER} \
+                        --name capstone-auth \
+                        --network helpmybabies \
+                        registry.digitalocean.com/capstone-ccsu/capstone-auth:${previousVersion}
 
-                    docker ps
-                '''                    
+                        docker ps
+                    '''                    
+                }
             }
         }
         cleanup {
