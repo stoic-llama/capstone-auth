@@ -21,7 +21,7 @@ process.on("unhandledRejection", (reason) => {
 });
 
 const main = async () => {
-  await dependentHostsInit();
+  // await dependentHostsInit();
   await mongoInit(config.DATABASE_URL);
   log.info(`Listening on 0.0.0.0:${config.PORT}`);
   await server.listen(config.PORT, '0.0.0.0');
