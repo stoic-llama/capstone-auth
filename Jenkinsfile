@@ -164,8 +164,8 @@ pipeline {
             echo "Release Success"
         }
         failure {
-            steps {
-                echo "Release Failed, rolling back to previous commit"
+            script {
+                echo "Release Failed, rolling back to the version of container prior to this release"
 
                 // Get the SHA of the previous commit
                 def previousVersion = getPrevCommitShaForRollback(1)
