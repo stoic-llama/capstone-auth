@@ -11,6 +11,9 @@ pipeline {
     environment {
         version = getCommitSha() 
         containerName = 'capstone-auth'
+        
+        // Get the SHA of the previous commit
+        previousVersion = getPrevCommitShaForRollback(1)
     }
 
     stages {
@@ -166,9 +169,6 @@ pipeline {
         failure {
             script {
                 echo "Release Failed, rolling back to the version of container prior to this release"
-
-                // Get the SHA of the previous commit
-                def previousVersion = getPrevCommitShaForRollback(1)
                 
                 // Check if the container exists 
                     // --> If yes, stop and remove it
