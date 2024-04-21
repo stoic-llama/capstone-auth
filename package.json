@@ -5,6 +5,7 @@
   "description": "capstone-auth - A REST+JSON API service",
   "main": "app.js",
   "dependencies": {
+    "axios": "^1.6.8",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -13,8 +14,8 @@
     "mongoose": "^6.4.6",
     "nodemailer": "^6.7.7",
     "pino": "^8.3.0",
-    "swagger-ui-express": "^4.5.0",
     "swagger-jsdoc": "^6.2.1",
+    "swagger-ui-express": "^4.5.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
@@ -32,7 +33,6 @@
   },
   "jest": {
     "verbose": true
-
   },
   "scripts": {
     "start": "node server.js",

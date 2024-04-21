@@ -28,4 +28,4 @@ ENV NODE_ENV="${NODE_ENV}" \
 COPY --chown=node:node . .
 EXPOSE 5400
 
-CMD npm run dev
+CMD npm run start
