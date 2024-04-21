@@ -5,13 +5,16 @@ def getCommitSha() {
 pipeline {
     agent any
     environment {
-        version = getCommitSha() // '1.1'
+        version = getCommitSha() 
         containerName = 'capstone-auth'
     }
 
     stages {
-        stage("login") {
+        stage("build application") {
             steps {
+                /******************************************
+                 ********** Login to Digital Ocean ********
+                 ******************************************/
                 echo 'authenticating into Digital Ocean repository...'
                 sh 'docker login registry.digitalocean.com'
                 
@@ -19,12 +22,12 @@ pipeline {
                 // in Jenkins conatiner that is in the droplet
                 // Refer to "API" tab in Digital Ocean
                 sh 'doctl auth init --context capstone-ccsu'  
-            }
-        }
 
-        stage("build") {
-            steps {
-                echo 'building the application...'
+
+                /******************************************
+                 ************ Compile and Build ***********
+                 ******************************************/
+                echo 'building application...'
                 sh 'doctl registry repo list-v2'
                 sh "docker build -t capstone-auth:${version} ."
                 sh "docker tag capstone-auth:${version} registry.digitalocean.com/capstone-ccsu/capstone-auth:${version}"
@@ -33,9 +36,9 @@ pipeline {
             }
         }
 
-        stage("test") {
+        stage("deploy to quality") {
             steps {
-                echo 'setting up the test environment...'    
+                echo 'deploying to quality environment...'    
 
                 script {
                     // Check if the container exists 
@@ -67,8 +70,12 @@ pipeline {
                         docker ps
                     '''                    
                 }
+            }
+        }
 
-                echo 'running the unit tests...'    
+        stage("test") {
+            steps {
+                echo 'executing tests...'    
 
                 sh '''
                     docker exec capstone-auth sh -c "npm run coverage"
@@ -100,21 +107,9 @@ pipeline {
             }
         }
 
-        stage("deploy") {
+        stage("deploy to production") {
             steps {
-                echo 'deploying the application...' 
-
-                // withCredentials([
-                //     string(credentialsId: 'website', variable: 'WEBSITE'),
-                // ]) {
-                //     script {
-                //         // Use SSH to check if the container exists. If not exist, then catch error
-                //         // so Jenkins pipeline can continue.
-                //         def containerExists = sh(script: 'ssh -i /var/jenkins_home/.ssh/website_deploy_rsa_key "${WEBSITE}" docker stop "${containerName}"', returnStatus: true)
-
-                //         echo "containerExists: $containerExists"
-                //     }
-                // }
+                echo 'deploying to production environment...' 
 
                 withCredentials([
                     string(credentialsId: 'website', variable: 'WEBSITE'),
