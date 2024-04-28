@@ -1,7 +1,7 @@
 import supertest from "supertest";
 import { jest } from "@jest/globals"; // eslint-disable-line
 
-import app from "../../../src/app.js";
+import app from "../../../../src/app" // "../../../src/app.js";
 
 
 describe("/api/v1/healthcheck", () => {

@@ -1,6 +1,6 @@
 import { jest } from "@jest/globals"; // eslint-disable-line
 
-import { requireSchema } from "../../../src/api/middlewares/validate.js";
+import { requireSchema } from "../../../../src/api/middlewares/validate" // "../../../src/api/middlewares/validate.js";
 
 const mockResponse = () => {
   const res = {

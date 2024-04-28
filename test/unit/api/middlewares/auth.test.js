@@ -3,11 +3,11 @@ import { jest } from "@jest/globals"; // eslint-disable-line
 import {
   authenticateWithToken,
   requireUser,
-} from "../../../../src/api/middlewares/auth.js";
+} from "../../../../src/api/middlewares/auth.js" // from "../../../../src/api/middlewares/auth.js";
 
-import UserService from "../../../../src/services/user.js";
+import UserService from "../../../../src/services/user.js" // "../../../../src/services/user.js";
 
-jest.mock("../../../src/services/user.js");
+jest.mock("../../../../src/services/user.js");
 
 const mockResponse = () => {
   const res = {
