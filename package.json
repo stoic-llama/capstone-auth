@@ -39,9 +39,10 @@
     "dev": "nodemon -w src -w .env -w server.js server | pino-pretty -clt -i 'hostname,pid'",
     "lint": "eslint .",
     "prettier": "prettier -w .",
-    "test": "jest --roots test",
-    "coverage": "jest --roots test --verbose --coverage",
-    "watch-test": "jest --roots test --verbose --watch",
+    "test": "jest --roots unit",
+    "coverage": "jest --roots test/unit --verbose --coverage",
+    "e2e": "jest --roots test/e2e --verbose --coverage",
+    "watch-test": "jest --roots unit --verbose --watch",
     "shell": "node --experimental-repl-await scripts/shell.js"
   },
   "author": "",

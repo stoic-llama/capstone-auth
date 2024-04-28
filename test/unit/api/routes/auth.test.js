@@ -1,8 +1,8 @@
 import supertest from "supertest";
 import { jest } from "@jest/globals"; // eslint-disable-line
 
-import app from "../../../src/app.js";
-import UserService from "../../../src/services/user.js";
+import app from "../../../../src/app.js";
+import UserService from "../../../../src/services/user.js";
 
 jest.mock("../../../src/services/user.js");
 

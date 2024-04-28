@@ -2,7 +2,7 @@ import {
   generatePasswordHash,
   validatePassword,
   isPasswordHash,
-} from "../../src/utils/password.js";
+} from "../../../src/utils/password.js";
 
 describe("Password hash generation and validation", () => {
   const password = "secret";

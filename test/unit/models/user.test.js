@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals"; // eslint-disable-line
 
-import User from "../../src/models/user.js";
-import { validatePassword } from "../../src/utils/password.js";
+import User from "../../../src/models/user.js";
+import { validatePassword } from "../../../src/utils/password.js";
 
 describe("User database model", () => {
   test("create new user based on provided attributes", () => {

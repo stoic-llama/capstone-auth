@@ -44,6 +44,17 @@ class UserService {
     }
   }
 
+  static async deleteByEmail(email) {
+    try {
+      const user = await User.findOne({ email: email });
+
+      const result = await user.deleteOne({ _id: user._id }).exec();
+      return result.deletedCount === 1;
+    } catch (err) {
+      throw new DatabaseError(err);
+    }
+  }
+
   static async getByEmail(email) {
     try {
       const user = await User.findOne({ email }).exec();
