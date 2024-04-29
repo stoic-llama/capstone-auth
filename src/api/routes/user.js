@@ -38,9 +38,6 @@ router.post(urls.user.lookup, requireSchema(userLookupSchema), async (req, res) 
   const user = await UserService.getByEmail(email);
   
   res.status(200).json({ user });
-
-  // Introduce an error to exit unexpectedly for the demo
-  throw new Error('🍌🍌🍌 Unexpected error occurred 🍌🍌🍌.');
 });
 
 router.get(urls.user.lookup, (req, res) => {
@@ -100,6 +97,9 @@ router.post(urls.user.edit, async (req, res) => {
 
 router.get(urls.user.edit, (req, res) => {
   res.status(405).json({ error: "Update user profile with POST instead" });
+
+  // Introduce an error to exit unexpectedly for the demo
+  throw new Error('🍌🍌🍌 Unexpected error occurred 🍌🍌🍌.');
 });
 
 
