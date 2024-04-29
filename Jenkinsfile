@@ -91,7 +91,7 @@ pipeline {
 
                     ls -l
 
-                    source /var/jenkins_home/workspace/capstone/capstone-auth/endToEndv4.sh 
+                    source endToEndv4.sh 
                 '''
             }
         }
