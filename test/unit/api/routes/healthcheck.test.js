@@ -17,3 +17,13 @@ describe("/api/v1/healthcheck", () => {
   });
 });
 
+describe("/api/v1/healthcheck", () => {
+  test("cannot be a POST request", async () => {
+    const req = supertest(app);
+    const res = await req
+      .post("/api/v1/healthcheck")
+
+    expect(res.status).toBe(404);
+    expect(res.body).toHaveProperty("error");
+  });
+});
