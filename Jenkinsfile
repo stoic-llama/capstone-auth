@@ -105,7 +105,7 @@ pipeline {
                     echo ${response}
 
                     # Check if the response contains "Success"
-                    if [[ "$response" == *"Success"* ]]; then
+                    if [[ "$response" = "Success" ]]; then
                         message="Success"
                     else
                         message="Failed"
