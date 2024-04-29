@@ -84,7 +84,10 @@ pipeline {
             steps {
                 echo 'executing tests...'    
 
-                // docker exec capstone-auth sh -c "npm run coverage"
+                sh '''
+                    docker exec capstone-auth sh -c "npm run coverage"
+                '''
+                
                 // source endToEndv4.sh 
                 // find / -type f -name "endToEndv4.sh" 2>/dev/null
                 // /var/jenkins_home/workspace/capstone/capstone-auth/endToEndv4.sh
