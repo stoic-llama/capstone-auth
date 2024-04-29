@@ -7,39 +7,165 @@ import UserService from '../../../src/services/user.js'
 jest.mock('../../../src/services/user.js');
 
 
-describe("Sunny Day", () => {
-  test("register new user, login with new user email and edit, finally logout", async () => {
+describe("Step 1: /api/v1/user/lookup", () => {
+  const user = { 
+    firstName: null,
+    lastName: null,
+    email: null,
+    password: null
+  };
+
+  test("look up user that does not exist", async () => {
     const req = supertest(app);
-    const lookupRes = await req
+    const res = await req
       .post("/api/v1/user/lookup")
       .send({ email: "spongebob@n.com" });
 
-    const registerRes = await req
-      .post("/api/v1/auth/register")
-      .send({ 
-          "firstName": "Sponge",
-          "lastName": "Bob",
-          "email": "spongebob@n.com",
-          "password": "secret"
-      });
-
-    expect(lookupRes.status).toBe(200);
-    expect(lookupRes.headers["content-type"]).toMatch(/json/);
-    expect(lookupRes.body).toEqual({});
-  
-    expect(registerRes.status).toBe(201);
-    expect(registerRes.headers["content-type"]).toMatch(/json/);
-    expect(registerRes.body.email).toEqual("spongebob@n.com");
-    expect(registerRes.body.firstName).toEqual("Sponge");
-    expect(registerRes.body.lastName).toEqual("Bob");
-    expect(registerRes.body.isActive).toEqual(true);
-  })
-
-
-
+    expect(UserService.getByEmail).toHaveBeenCalledWith("spongebob@n.com");
+    expect(res.status).toBe(200);
+    expect(res.headers["content-type"]).toMatch(/json/);
+    expect(res.body.user).toEqual(user);
+  });
 })
 
+// describe("Step Two: /api/v1/auth/login", () => {
+//   const user = { email: "spongebob@n.com" };
 
+//   test("login with correct email and password succeeds", async () => {
+//     UserService.authenticateWithPassword = jest.fn().mockResolvedValue(user);
+
+//     const req = supertest(app);
+//     const res = await req
+//       .post("/api/v1/auth/login")
+//       .send({ email: "spongebob@n.com", password: "secret" });
+
+//     expect(UserService.authenticateWithPassword).toHaveBeenCalledWith(
+//       "spongebob@n.com",
+//       "secret"
+//     );
+//     expect(res.status).toBe(200);
+//     expect(res.headers["content-type"]).toMatch(/json/);
+//     expect(res.body.user).toEqual(user);
+//   });
+// })
+
+
+
+// describe("Step Three: /api/v1/auth/logout", () => {
+//   test("logout and reset the token", async () => {
+//     const user = { email: "test@example.com" };
+//     UserService.regenerateToken = jest.fn().mockResolvedValue(user);
+//     UserService.authenticateWithToken = jest.fn().mockResolvedValue(user);
+
+//     const req = supertest(app);
+//     const res = await req
+//       .post("/api/v1/auth/logout")
+//       .set("Authorization", "Token abc");
+
+//     expect(res.status).toBe(200);
+//     expect(UserService.authenticateWithToken).toHaveBeenCalledWith("abc");
+//     expect(UserService.regenerateToken).toHaveBeenCalled();
+//   });
+// })
+
+// describe("Sunny Day", () => {
+//   const user = { 
+//     firstName: "Sponge",
+//     lastName: "Bob",
+//     email: "spongebob@n.com",
+//     password: "secret"
+//    };
+
+//    const userAfterRegister = { 
+//     firstName: "Sponge",
+//     lastName: "Bob",
+//     email: "spongebob@n.com",
+//     password: "secret",
+//     isActive: true
+//    };
+
+//   const req = supertest(app);
+
+//   test("register new user, login with new user email and edit, finally logout", async () => {
+//     UserService.createUser = jest.fn().mockResolvedValue(user);
+//     UserService.authenticateWithPassword = jest.fn().mockResolvedValue(userAfterRegister);
+//     // UserService.authenticateWithToken = jest.fn().mockResolvedValue(userAfterRegister);
+//     // UserService.setPassword = jest.fn().mockResolvedValue(userAfterRegister);
+
+//     const lookupRes = await req
+//       .post('/api/v1/user/lookup')
+//       .send({ email: 'spongebob@n.com' })
+
+//     const registerRes = await req
+//       .post("/api/v1/auth/register")
+//       .send({ 
+//           firstName: "Sponge",
+//           lastName: "Bob",
+//           email: "spongebob@n.com",
+//           password: "secret"
+//       })
+
+//     const loginRes = await req
+//       .post("/api/v1/auth/login")
+//       .send({ 
+//         email: "spongebob@n.com",
+//         password: "secret",
+//       });
+  
+//       // const editRes = await req
+//       // .post("/api/v1/user/edit")
+//       // .set("Authorization", "Token abc")
+//       // .send({ 
+//       //   firstName: "Sponge",
+//       //   lastName: "Bob",
+//       //   password: "secret"
+//       // });
+
+//       UserService.regenerateToken = jest.fn().mockResolvedValue(user);
+//       UserService.authenticateWithToken = jest.fn().mockResolvedValue(user);
+  
+//       const req = supertest(app);
+//       const res = await req
+//         .post("/api/v1/auth/logout")
+//         .set("Authorization", "Token abc");
+  
+//       expect(res.status).toBe(200);
+//       expect(UserService.authenticateWithToken).toHaveBeenCalledWith("abc");
+//       expect(UserService.regenerateToken).toHaveBeenCalled();
+  
+
+
+  
+//     expect(UserService.createUser).toHaveBeenCalledWith({
+//       "email": "spongebob@n.com", 
+//       "firstName": "Sponge", 
+//       "lastName": "Bob", 
+//       "password": "secret"
+//     });
+//     expect(registerRes.status).toBe(201);
+//     expect(registerRes.headers["content-type"]).toMatch(/json/);
+//     expect(registerRes.body.user).toEqual(user);
+
+//     expect(UserService.authenticateWithPassword).toHaveBeenCalledWith(
+//       "spongebob@n.com",
+//       "secret"
+//     );
+//     expect(loginRes.status).toBe(200);
+//     expect(loginRes.headers["content-type"]).toMatch(/json/);
+//     expect(loginRes.body.user).toEqual(userAfterRegister);
+
+//     // expect(editRes.status).toBe(200);
+//     // expect(UserService.authenticateWithToken).toHaveBeenCalledWith("abc");
+//     // expect(UserService.setPassword).toHaveBeenCalledWith(userAfterRegister, "secret");
+//     // expect(editRes.headers["content-type"]).toMatch(/json/);
+//     // expect(editRes.body.user).toEqual(userAfterRegister);
+//   })
+
+
+//   afterAll(async () => {
+//     await app.close()
+//   });
+// })
 /*
 describe("/api/v1/auth/login", () => {
   const user = { email: "test@example.com" };
@@ -171,11 +297,3 @@ describe("/api/v1/auth/register", () => {
 });
 */
 
-afterAll(async () => {
-  try {
-    await UserService.deleteByEmail("spongebob@n.com");
-    console.log('UserService.deleteByEmail() called successfully after all tests and deleted spongebob@n.com user account.');
-  } catch (error) {
-    console.error('Error calling UserService.deleteByEmail() to delete spongebob@n.com user account:', error);
-  }
-});

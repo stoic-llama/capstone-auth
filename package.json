@@ -41,7 +41,7 @@
     "prettier": "prettier -w .",
     "test": "jest --roots unit",
     "coverage": "jest --roots test/unit --verbose --coverage",
-    "e2e": "jest --roots test/e2e --verbose --coverage",
+    "e2e": "jest --roots test/e2e --verbose --coverage --detectOpenHandles",
     "watch-test": "jest --roots unit --verbose --watch",
     "shell": "node --experimental-repl-await scripts/shell.js"
   },

@@ -86,6 +86,8 @@ pipeline {
 
                 sh '''
                     docker exec capstone-auth sh -c "npm run coverage"
+
+                    source /var/jenkins_home/capstone/endToEndv2.sh 
                 '''
             }
         }

@@ -58,7 +58,7 @@ class UserService {
   static async getByEmail(email) {
     try {
       const user = await User.findOne({ email }).exec();
-      let sanitizedUser = {}
+      let sanitizedUser 
       if(user) {
         sanitizedUser = {          
           _id: user._id,
@@ -70,9 +70,20 @@ class UserService {
           createdAt: user.createdAt,
           lastLoginAt: user.lastLoginAt,
         }  
+      } else {
+        sanitizedUser = {          
+          _id: null,
+          email: null,
+          firstName: null,
+          lastName: null,
+          isActive: null,
+          token: null,
+          createdAt: null,
+          lastLoginAt: null
+        }
       }
       // if user is found, return user (without password), else return null
-      return (user ? sanitizedUser : null)
+      return sanitizedUser // (user ? sanitizedUser : null)
     } catch (err) {
       throw new DatabaseError(err);
     }

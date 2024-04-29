@@ -81,7 +81,7 @@ router.post(
   requireSchema(registerSchema),
   async (req, res, next) => {
     if (req.user) {
-      res.json({ user: req.user });
+      res.json({ message: "user exists"}); // user: req.user });
       return;
     }
 
