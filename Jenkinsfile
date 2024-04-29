@@ -85,12 +85,11 @@ pipeline {
                 echo 'executing tests...'    
 
                 // docker exec capstone-auth sh -c "npm run coverage"
+                // source endToEndv4.sh 
                 sh '''
-                    pwd
+                    find / -type f -name "endToEndv4.sh" 2>/dev/null
 
-                    ls -l
-
-                    source endToEndv4.sh 
+                    
                 '''
             }
         }
