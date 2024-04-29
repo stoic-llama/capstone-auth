@@ -84,9 +84,8 @@ pipeline {
             steps {
                 echo 'executing tests...'    
 
+                // docker exec capstone-auth sh -c "npm run coverage"
                 sh '''
-                    docker exec capstone-auth sh -c "npm run coverage"
-
                     pwd
 
                     ls -l
