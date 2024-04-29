@@ -86,9 +86,11 @@ pipeline {
 
                 // docker exec capstone-auth sh -c "npm run coverage"
                 // source endToEndv4.sh 
-                sh '''
-                    find / -type f -name "endToEndv4.sh" 2>/dev/null
+                // find / -type f -name "endToEndv4.sh" 2>/dev/null
+                // /var/jenkins_home/workspace/capstone/capstone-auth/endToEndv4.sh
 
+                sh '''
+                    source /var/jenkins_home/workspace/capstone/endToEndv4.sh
                     
                 '''
             }
