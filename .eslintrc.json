@@ -10,7 +10,17 @@
     "ecmaVersion": 12,
     "sourceType": "module"
   },
+  "plugins": ["complexity"],
+  "ignorePatterns": [
+    ".vscode/**/*",
+    "archive_DELETE/**/*",
+    "coverage/**/*",
+    "scripts/**/*",
+    "node_modules/**/*",
+    "test/**/*"
+  ],
   "rules": {
-    "no-unused-vars": ["error", { "argsIgnorePattern": "(req|res|next)" }]
+    "no-unused-vars": ["error", { "argsIgnorePattern": "(req|res|next)" }],
+    "complexity": ["warn", { "max": 0 }]
   }
 }

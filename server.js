@@ -4,7 +4,7 @@ import app from "./src/app.js";
 import config from "./src/utils/config.js";
 import logger from "./src/utils/log.js";
 import mongoInit from "./src/models/init.js";
-import dependentHostsInit from "./src/models/dependentHostsInit.js";
+// import dependentHostsInit from "./src/models/dependentHostsInit.js";
 
 const log = logger("server");
 const server = http.createServer(app);

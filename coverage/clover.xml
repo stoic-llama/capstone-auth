@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1714407370553" clover="3.2.0">
-  <project timestamp="1714407370553" name="All files">
-    <metrics statements="276" coveredstatements="155" conditionals="77" coveredconditionals="37" methods="52" coveredmethods="24" elements="405" coveredelements="216" complexity="0" loc="276" ncloc="276" packages="8" files="18" classes="18"/>
+<coverage generated="1722544138766" clover="3.2.0">
+  <project timestamp="1722544138766" name="All files">
+    <metrics statements="277" coveredstatements="158" conditionals="77" coveredconditionals="37" methods="52" coveredmethods="25" elements="406" coveredelements="220" complexity="0" loc="277" ncloc="277" packages="8" files="18" classes="18"/>
     <package name="src">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="/Users/johnliu/Projects/src/github.com/stoic-llama/capstone-auth/src/app.js">
@@ -27,12 +27,12 @@
       </file>
     </package>
     <package name="src.api.middlewares">
-      <metrics statements="54" coveredstatements="36" conditionals="17" coveredconditionals="9" methods="11" coveredmethods="6"/>
+      <metrics statements="54" coveredstatements="39" conditionals="17" coveredconditionals="9" methods="11" coveredmethods="7"/>
       <file name="auth.js" path="/Users/johnliu/Projects/src/github.com/stoic-llama/capstone-auth/src/api/middlewares/auth.js">
         <metrics statements="17" coveredstatements="15" conditionals="6" coveredconditionals="5" methods="4" coveredmethods="3"/>
         <line num="3" count="3" type="stmt"/>
-        <line num="4" count="11" type="stmt"/>
-        <line num="5" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="4" count="12" type="stmt"/>
+        <line num="5" count="12" type="cond" truecount="2" falsecount="0"/>
         <line num="6" count="5" type="stmt"/>
         <line num="7" count="5" type="cond" truecount="1" falsecount="1"/>
         <line num="8" count="5" type="stmt"/>
@@ -41,7 +41,7 @@
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
         <line num="17" count="5" type="stmt"/>
-        <line num="21" count="6" type="stmt"/>
+        <line num="21" count="7" type="stmt"/>
         <line num="24" count="3" type="stmt"/>
         <line num="25" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="26" count="1" type="stmt"/>
@@ -49,13 +49,13 @@
         <line num="30" count="1" type="stmt"/>
       </file>
       <file name="errors.js" path="/Users/johnliu/Projects/src/github.com/stoic-llama/capstone-auth/src/api/middlewares/errors.js">
-        <metrics statements="13" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <metrics statements="13" coveredstatements="7" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
         <line num="26" count="2" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
@@ -93,7 +93,7 @@
       </file>
     </package>
     <package name="src.api.routes">
-      <metrics statements="86" coveredstatements="56" conditionals="16" coveredconditionals="6" methods="17" coveredmethods="9"/>
+      <metrics statements="87" coveredstatements="56" conditionals="16" coveredconditionals="6" methods="17" coveredmethods="9"/>
       <file name="auth.js" path="/Users/johnliu/Projects/src/github.com/stoic-llama/capstone-auth/src/api/routes/auth.js">
         <metrics statements="37" coveredstatements="31" conditionals="10" coveredconditionals="6" methods="8" coveredmethods="7"/>
         <line num="13" count="2" type="stmt"/>
@@ -165,31 +165,32 @@
         <line num="49" count="2" type="stmt"/>
       </file>
       <file name="user.js" path="/Users/johnliu/Projects/src/github.com/stoic-llama/capstone-auth/src/api/routes/user.js">
-        <metrics statements="25" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <metrics statements="26" coveredstatements="5" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="8" count="2" type="stmt"/>
         <line num="34" count="2" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
-        <line num="46" count="2" type="stmt"/>
-        <line num="47" count="0" type="stmt"/>
-        <line num="75" count="2" type="stmt"/>
-        <line num="76" count="0" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="72" count="2" type="stmt"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="74" count="0" type="stmt"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="77" count="0" type="stmt"/>
-        <line num="79" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="80" count="0" type="stmt"/>
-        <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="78" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
-        <line num="84" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
         <line num="86" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
         <line num="88" count="0" type="stmt"/>
         <line num="89" count="0" type="stmt"/>
-        <line num="90" count="0" type="stmt"/>
-        <line num="91" count="0" type="stmt"/>
-        <line num="92" count="0" type="stmt"/>
-        <line num="96" count="0" type="stmt"/>
-        <line num="101" count="2" type="stmt"/>
+        <line num="93" count="0" type="stmt"/>
+        <line num="98" count="2" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
         <line num="102" count="0" type="stmt"/>
       </file>
     </package>
