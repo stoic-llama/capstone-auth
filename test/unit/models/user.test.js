@@ -83,7 +83,10 @@ describe("User database model", () => {
     User.findOne = jest.fn(() => ({ exec: () => user }));
     user.save = jest.fn(() => user);
 
-    expect(user.lastLoginAt).toEqual(user.createdAt);
+    // tolerance in milliseconds to avoid deep equality check 
+    // failing due to difference in milliseconds
+    const tolerance = 10; 
+    expect(Math.abs(user.lastLoginAt - user.createdAt)).toBeLessThanOrEqual(tolerance);
 
     const found = await User.authenticateWithPassword(
       "test@example.com",
