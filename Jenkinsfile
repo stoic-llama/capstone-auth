@@ -88,7 +88,7 @@ pipeline {
                     // Code Review - Code Complexity
                     // Source Lines of Code
                     sh '''
-                        docker exec capstone-backend sh -c '
+                        docker exec capstone-auth sh -c '
                             #!/bin/bash
                             
                             # Check if curl is installed
@@ -112,7 +112,7 @@ pipeline {
                     '''
 
                     sh '''
-                        docker exec capstone-backend sh -c "
+                        docker exec capstone-auth sh -c "
                             echo 'Initiating cloc from kent c dodds...'
 
                             npx cloc . --by-file --exclude-dir=node_modules,.vscode,.VSCodeCounter,Archive,coverage,tests --include-lang=JavaScript
