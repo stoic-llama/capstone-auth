@@ -115,7 +115,7 @@ pipeline {
                         docker exec capstone-auth sh -c "
                             echo 'Initiating cloc from kent c dodds...'
 
-                            npx cloc . --by-file npx eslint . --ignore-pattern 'coverage/lcov-report/**' --include-lang=JavaScript
+                            npx eslint . --ignore-pattern 'coverage/lcov-report/**'
                         "
                     '''
 
