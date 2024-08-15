@@ -122,7 +122,7 @@ pipeline {
                     // Code Review - Code Complexity
                     // McCabe's Cyclomatic Cycle
                     sh '''
-                        docker exec capstone-backend sh -c "npm run eslint"
+                        docker exec capstone-auth sh -c "npm run eslint"
                     '''      
                     
                     // Unit Tests
