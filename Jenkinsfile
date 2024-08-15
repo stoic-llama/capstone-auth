@@ -88,7 +88,7 @@ pipeline {
                     // Code Review - Code Complexity
                     // Source Lines of Code
                     sh '''
-                        docker exec capstone-auth sh -c '
+                        docker exec -u root capstone-auth sh -c '
                             #!/bin/bash
                             
                             # Check if curl is installed
