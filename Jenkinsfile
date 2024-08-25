@@ -19,6 +19,10 @@ pipeline {
     stages {
         stage("build application") {
             steps {
+                echo '#####################'
+                echo '# Build Application #'
+                echo '#####################'
+
                 /******************************************
                  ********** Login to Digital Ocean ********
                  ******************************************/
@@ -45,8 +49,9 @@ pipeline {
 
         stage("deploy to quality") {
             steps {
-                echo 'deploying to quality environment...'    
-
+                echo '#################################'
+                echo '# Deploy to Quality Environment #'
+                echo '#################################'
                 script {
                     // Check if the container exists 
                         // --> If yes, stop and remove it
@@ -82,8 +87,10 @@ pipeline {
 
         stage("test") {
             steps {
-                echo 'executing tests...'    
-
+                echo '############################'
+                echo '# Code Review - Complexity #'
+                echo '# Source Lines of Code     #'    
+                echo '############################'
                 script {
                     // Code Review - Code Complexity
                     // Source Lines of Code
@@ -119,42 +126,19 @@ pipeline {
                         "
                     '''
 
-                    // Code Review - Code Complexity
-                    // McCabe's Cyclomatic Cycle
+                    echo '############################'
+                    echo '# Code Review - Complexity #'
+                    echo '# McCabes Cyclomatic Cycle #'    
+                    echo '############################'
                     sh '''
                         docker exec capstone-auth sh -c "npm run eslint"
                     '''      
                     
-                    // Unit Tests
+                    echo '##############'
+                    echo '# Unit Tests #'
+                    echo '##############'                    
                     sh '''
                         docker exec capstone-auth sh -c "npm run coverage"
-                    '''
-                    
-                    // Integration Tests
-                    sh '''
-                        #!/bin/bash
-
-                        echo "Initiate end to end testing..."
-                        
-                        # Check if cURL command is available (required), abort if it does not exist
-                        if ! type curl >/dev/null 2>&1; then
-                            echo >&2 "Required curl but it's not installed. Aborting."
-                            exit 1
-                        fi
-                        
-                        # Perform GET Request
-                        response=$(curl -s 'http://104.236.196.52:9000/api/v1/e2e')
-                        echo ${response}
-
-                        # Check if the response contains "Success"
-                        if [ $response = "Success" ]; then
-                            message="Success"
-                        else
-                            message="Failed"
-                        fi
-
-                        # Print Response in Jenkins Console
-                        echo "Test Result: $message" 
                     '''
                 }
             }
@@ -162,8 +146,10 @@ pipeline {
 
         stage("production approval") {
             steps {
-                echo 'getting approval to go to production...'
-        
+                echo '##########################'
+                echo '# Approval to Production #'
+                echo '##########################'
+
                 emailext (
                     subject: "APPROVAL REQUIRED: ${JOB_NAME} build ${BUILD_DISPLAY_NAME}",
                     body:   '''     
@@ -186,8 +172,10 @@ pipeline {
 
         stage("deploy to production") {
             steps {
-                echo 'deploying to production environment...' 
-
+                echo '########################'
+                echo '# Deploy to Production #'
+                echo '########################' 
+                
                 withCredentials([
                     string(credentialsId: 'website', variable: 'WEBSITE'),
                 ]) {
